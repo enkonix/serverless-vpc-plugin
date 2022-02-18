@@ -6,3 +6,5 @@ coverage
 node_modules
 example/package-lock.json
 *.tgz
+.idea
+.DS_Store

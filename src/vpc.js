@@ -81,6 +81,13 @@ function buildAppSecurityGroup(prefixLists = null) {
       ToPort: 443,
       CidrIp: '0.0.0.0/0',
     },
+    {
+      Description: 'permit SMTPS outbound',
+      IpProtocol: 'tcp',
+      FromPort: 587,
+      ToPort: 587,
+      CidrIp: '0.0.0.0/0',
+    },
   ];
   if (prefixLists) {
     egress.push({

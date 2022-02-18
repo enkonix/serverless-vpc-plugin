@@ -37,7 +37,8 @@ class ServerlessVpcPlugin {
   async afterInitialize() {
     let cidrBlock = '10.0.0.0/16';
     let zones = [];
-    let services = ['s3', 'dynamodb'];
+    //let services = ['s3', 'dynamodb'];
+    let services = [];
     let createNatGateway = false;
     let createNetworkAcl = false;
     let createDbSubnet = true;

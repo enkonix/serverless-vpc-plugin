@@ -29,6 +29,13 @@ function buildNatSecurityGroup() {
             ToPort: 443,
             CidrIp: '0.0.0.0/0',
           },
+          {
+            Description: 'permit outbound SMTP TLS to the Internet',
+            IpProtocol: 'tcp',
+            FromPort: 587,
+            ToPort: 587,
+            CidrIp: '0.0.0.0/0',
+          },
         ],
         SecurityGroupIngress: [
           {
@@ -45,6 +52,15 @@ function buildNatSecurityGroup() {
             IpProtocol: 'tcp',
             FromPort: 443,
             ToPort: 443,
+            SourceSecurityGroupId: {
+              Ref: 'AppSecurityGroup',
+            },
+          },
+          {
+            Description: 'permit inbound SMTP TLS from AppSecurityGroup',
+            IpProtocol: 'tcp',
+            FromPort: 587,
+            ToPort: 587,
             SourceSecurityGroupId: {
               Ref: 'AppSecurityGroup',
             },
@@ -99,7 +115,7 @@ function buildNatInstance(imageId, zones = [], { name = 'NatInstance' } = {}) {
           },
         ],
         ImageId: imageId, // amzn-ami-vpc-nat-hvm-2018.03.0.20181116-x86_64-ebs
-        InstanceType: 't2.micro',
+        InstanceType: 't3.nano',
         Monitoring: false,
         NetworkInterfaces: [
           {

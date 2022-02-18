@@ -145,7 +145,7 @@ function buildBastionLaunchConfiguration(
         IamInstanceProfile: {
           Ref: 'BastionInstanceProfile',
         },
-        InstanceType: 't2.micro',
+        InstanceType: 't3.nano',
         SecurityGroups: [
           {
             Ref: 'BastionSecurityGroup',
@@ -293,14 +293,6 @@ async function buildBastion(keyPairName, numZones = 0) {
     return {};
   }
   let publicIp = '0.0.0.0/0';
-  try {
-    publicIp = await getPublicIp();
-    if (publicIp) {
-      publicIp = `${publicIp.trim()}/32`;
-    }
-  } catch (err) {
-    console.error('Unable to discover public IP address:', err);
-  }
 
   return {
     ...buildBastionEIP(),
