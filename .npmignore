@@ -8,6 +8,7 @@
 .prettierignore
 .serverless/
 .vscode/
+.idea/
 *.tgz
 CODE_OF_CONDUCT.md
 SECURITY.md
