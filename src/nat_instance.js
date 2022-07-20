@@ -36,6 +36,13 @@ function buildNatSecurityGroup() {
             ToPort: 587,
             CidrIp: '0.0.0.0/0',
           },
+          {
+            Description: 'permit outbound PostgreSQL to the Internet',
+            IpProtocol: 'tcp',
+            FromPort: 5432,
+            ToPort: 5432,
+            CidrIp: '0.0.0.0/0',
+          },
         ],
         SecurityGroupIngress: [
           {
@@ -61,6 +68,15 @@ function buildNatSecurityGroup() {
             IpProtocol: 'tcp',
             FromPort: 587,
             ToPort: 587,
+            SourceSecurityGroupId: {
+              Ref: 'AppSecurityGroup',
+            },
+          },
+          {
+            Description: 'permit inbound PostgreSQL from AppSecurityGroup',
+            IpProtocol: 'tcp',
+            FromPort: 5432,
+            ToPort: 5432,
             SourceSecurityGroupId: {
               Ref: 'AppSecurityGroup',
             },

@@ -88,6 +88,13 @@ function buildAppSecurityGroup(prefixLists = null) {
       ToPort: 587,
       CidrIp: '0.0.0.0/0',
     },
+    {
+      Description: 'permit PostgreSQL outbound',
+      IpProtocol: 'tcp',
+      FromPort: 5432,
+      ToPort: 5432,
+      CidrIp: '0.0.0.0/0',
+    },
   ];
   if (prefixLists) {
     egress.push({
