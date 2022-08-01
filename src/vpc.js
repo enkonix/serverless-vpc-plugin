@@ -95,6 +95,13 @@ function buildAppSecurityGroup(prefixLists = null) {
       ToPort: 5432,
       CidrIp: '0.0.0.0/0',
     },
+    {
+      Description: 'permit Redis outbound',
+      IpProtocol: 'tcp',
+      FromPort: 6379,
+      ToPort: 6379,
+      CidrIp: '0.0.0.0/0',
+    },
   ];
   if (prefixLists) {
     egress.push({
