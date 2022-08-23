@@ -16,83 +16,19 @@ function buildNatSecurityGroup() {
         },
         SecurityGroupEgress: [
           {
-            Description: 'permit outbound HTTP to the Internet',
+            Description: 'permit outbound traffic to the Internet',
             IpProtocol: 'tcp',
-            FromPort: 80,
-            ToPort: 80,
-            CidrIp: '0.0.0.0/0',
-          },
-          {
-            Description: 'permit outbound HTTPS to the Internet',
-            IpProtocol: 'tcp',
-            FromPort: 443,
-            ToPort: 443,
-            CidrIp: '0.0.0.0/0',
-          },
-          {
-            Description: 'permit outbound SMTP TLS to the Internet',
-            IpProtocol: 'tcp',
-            FromPort: 587,
-            ToPort: 587,
-            CidrIp: '0.0.0.0/0',
-          },
-          {
-            Description: 'permit outbound PostgreSQL to the Internet',
-            IpProtocol: 'tcp',
-            FromPort: 5432,
-            ToPort: 5432,
-            CidrIp: '0.0.0.0/0',
-          },
-          {
-            Description: 'permit outbound Redis to the Internet',
-            IpProtocol: 'tcp',
-            FromPort: 6379,
-            ToPort: 6379,
+            FromPort: 0,
+            ToPort: 65535,
             CidrIp: '0.0.0.0/0',
           },
         ],
         SecurityGroupIngress: [
           {
-            Description: 'permit inbound HTTP from AppSecurityGroup',
+            Description: 'permit all inbound traffic',
             IpProtocol: 'tcp',
-            FromPort: 80,
-            ToPort: 80,
-            SourceSecurityGroupId: {
-              Ref: 'AppSecurityGroup',
-            },
-          },
-          {
-            Description: 'permit inbound HTTPS from AppSecurityGroup',
-            IpProtocol: 'tcp',
-            FromPort: 443,
-            ToPort: 443,
-            SourceSecurityGroupId: {
-              Ref: 'AppSecurityGroup',
-            },
-          },
-          {
-            Description: 'permit inbound SMTP TLS from AppSecurityGroup',
-            IpProtocol: 'tcp',
-            FromPort: 587,
-            ToPort: 587,
-            SourceSecurityGroupId: {
-              Ref: 'AppSecurityGroup',
-            },
-          },
-          {
-            Description: 'permit inbound PostgreSQL from AppSecurityGroup',
-            IpProtocol: 'tcp',
-            FromPort: 5432,
-            ToPort: 5432,
-            SourceSecurityGroupId: {
-              Ref: 'AppSecurityGroup',
-            },
-          },
-          {
-            Description: 'permit inbound Redis from AppSecurityGroup',
-            IpProtocol: 'tcp',
-            FromPort: 6379,
-            ToPort: 6379,
+            FromPort: 0,
+            ToPort: 65535,
             SourceSecurityGroupId: {
               Ref: 'AppSecurityGroup',
             },

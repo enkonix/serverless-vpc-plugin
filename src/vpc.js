@@ -75,57 +75,13 @@ function buildInternetGateway() {
 function buildAppSecurityGroup(prefixLists = null) {
   const egress = [
     {
-      Description: 'permit HTTPS outbound',
+      Description: 'permit all outbound traffic',
       IpProtocol: 'tcp',
-      FromPort: 443,
-      ToPort: 443,
-      CidrIp: '0.0.0.0/0',
-    },
-    {
-      Description: 'permit SMTPS outbound',
-      IpProtocol: 'tcp',
-      FromPort: 587,
-      ToPort: 587,
-      CidrIp: '0.0.0.0/0',
-    },
-    {
-      Description: 'permit PostgreSQL outbound',
-      IpProtocol: 'tcp',
-      FromPort: 5432,
-      ToPort: 5432,
-      CidrIp: '0.0.0.0/0',
-    },
-    {
-      Description: 'permit Redis outbound',
-      IpProtocol: 'tcp',
-      FromPort: 6379,
-      ToPort: 6379,
+      FromPort: 0,
+      ToPort: 65535,
       CidrIp: '0.0.0.0/0',
     },
   ];
-  if (prefixLists) {
-    egress.push({
-      DestinationPrefixListId: prefixLists.s3,
-      Description: 'permit HTTPS to S3',
-      IpProtocol: 'tcp',
-      FromPort: 443,
-      ToPort: 443,
-    });
-    egress.push({
-      DestinationPrefixListId: prefixLists.s3,
-      Description: 'permit HTTP to S3',
-      IpProtocol: 'tcp',
-      FromPort: 80,
-      ToPort: 80,
-    });
-    egress.push({
-      DestinationPrefixListId: prefixLists.dynamodb,
-      Description: 'permit HTTPS to DynamoDB',
-      IpProtocol: 'tcp',
-      FromPort: 443,
-      ToPort: 443,
-    });
-  }
 
   return {
     DefaultSecurityGroupEgress: {
